@@ -1,0 +1,53 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "npm install",
+  "devCommand": "npm run dev",
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "@supabase_url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase_anon_key",
+    "SUPABASE_SERVICE_ROLE_KEY": "@supabase_service_role_key",
+    "SLACK_BOT_TOKEN": "@slack_bot_token",
+    "SLACK_SIGNING_SECRET": "@slack_signing_secret",
+    "SLACK_APP_TOKEN": "@slack_app_token",
+    "SALESFORCE_CLIENT_ID": "@salesforce_client_id",
+    "SALESFORCE_CLIENT_SECRET": "@salesforce_client_secret",
+    "SALESFORCE_USERNAME": "@salesforce_username",
+    "SALESFORCE_PASSWORD": "@salesforce_password",
+    "SALESFORCE_SECURITY_TOKEN": "@salesforce_security_token",
+    "OPENAI_API_KEY": "@openai_api_key",
+    "NEXTAUTH_SECRET": "@nextauth_secret",
+    "NEXTAUTH_URL": "@nextauth_url"
+  },
+  "functions": {
+    "src/app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/health",
+      "destination": "/api/health"
+    }
+  ]
+}
