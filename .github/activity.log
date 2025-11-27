@@ -92,3 +92,4 @@
 [2025-11-27 17:07:01 +0530] feat: enhance dashboard metrics visualization (1/10)
 [2025-11-27 09:52:59 +0530] docs: clarify setup prerequisites in guide (2/10)
 [2025-11-27 16:03:30 +0530] perf: optimize database query throughput (3/10)
+[2025-11-27 08:00:26 +0530] chore: clean up deprecated helpers (4/10)
