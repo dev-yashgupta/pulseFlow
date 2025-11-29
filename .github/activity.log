@@ -113,3 +113,4 @@
 [2025-11-29 09:01:53 +0530] feat: enhance dashboard metrics visualization (5/9)
 [2025-11-29 10:08:43 +0530] fix: resolve edge case in data ingestion (6/9)
 [2025-11-29 21:01:11 +0530] perf: cache frequently accessed lookup tables (7/9)
+[2025-11-29 09:54:19 +0530] docs: clarify setup prerequisites in guide (8/9)
