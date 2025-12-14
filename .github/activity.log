@@ -215,3 +215,4 @@
 [2025-12-14 15:05:32 +0530] refactor: modularize authentication middleware (7/10)
 [2025-12-14 18:49:48 +0530] fix: address null pointer exception in parser (8/10)
 [2025-12-14 16:00:48 +0530] fix: correct timezone handling in scheduler (9/10)
+[2025-12-14 13:10:02 +0530] chore: clean up deprecated helpers (10/10)
