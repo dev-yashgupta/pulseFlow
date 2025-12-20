@@ -243,3 +243,4 @@
 [2025-12-20 11:54:01 +0530] style: standardize formatting and lint rules (2/6)
 [2025-12-20 18:31:07 +0530] ci: fine-tune workflow build pipeline (3/6)
 [2025-12-20 08:45:32 +0530] test: add unit coverage for core services (4/6)
+[2025-12-20 18:46:36 +0530] docs: clarify setup prerequisites in guide (5/6)
