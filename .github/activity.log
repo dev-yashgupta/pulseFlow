@@ -287,3 +287,4 @@
 [2025-12-26 12:02:09 +0530] docs: clarify setup prerequisites in guide (4/5)
 [2025-12-26 11:08:32 +0530] docs: update API documentation and examples (5/5)
 [2025-12-27 18:39:11 +0530] fix: resolve edge case in data ingestion (1/4)
+[2025-12-27 10:02:02 +0530] chore: clean up deprecated helpers (2/4)
