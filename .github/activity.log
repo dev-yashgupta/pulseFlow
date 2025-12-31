@@ -316,3 +316,4 @@
 [2025-12-31 15:44:06 +0530] fix: correct timezone handling in scheduler (1/9)
 [2025-12-31 20:27:39 +0530] style: standardize formatting and lint rules (2/9)
 [2025-12-31 22:58:53 +0530] chore: clean up deprecated helpers (3/9)
+[2025-12-31 08:52:04 +0530] ci: fine-tune workflow build pipeline (4/9)
