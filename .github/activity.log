@@ -339,3 +339,4 @@
 [2026-01-02 21:01:26 +0530] fix: address null pointer exception in parser (4/5)
 [2026-01-02 15:29:44 +0530] feat: implement real-time event notifications (5/5)
 [2026-01-03 19:40:29 +0530] docs: update API documentation and examples (1/10)
+[2026-01-03 15:42:16 +0530] fix: correct timezone handling in scheduler (2/10)
