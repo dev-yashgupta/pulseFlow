@@ -346,3 +346,4 @@
 [2026-01-03 12:46:54 +0530] test: add unit coverage for core services (6/10)
 [2026-01-03 20:25:25 +0530] fix: address null pointer exception in parser (7/10)
 [2026-01-03 15:40:15 +0530] test: add unit coverage for core services (8/10)
+[2026-01-03 21:50:59 +0530] chore: clean up deprecated helpers (9/10)
