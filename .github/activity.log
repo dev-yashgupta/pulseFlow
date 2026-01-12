@@ -405,3 +405,4 @@
 [2026-01-11 08:39:14 +0530] perf: reduce memory consumption in background worker (5/7)
 [2026-01-11 18:16:29 +0530] refactor: modularize authentication middleware (6/7)
 [2026-01-11 10:02:39 +0530] perf: reduce memory consumption in background worker (7/7)
+[2026-01-12 08:49:28 +0530] docs: clarify setup prerequisites in guide (1/3)
