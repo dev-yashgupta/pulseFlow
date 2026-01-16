@@ -432,3 +432,4 @@
 [2026-01-16 13:26:32 +0530] perf: reduce memory consumption in background worker (3/6)
 [2026-01-16 20:17:31 +0530] perf: cache frequently accessed lookup tables (4/6)
 [2026-01-16 18:55:11 +0530] test: add unit coverage for core services (5/6)
+[2026-01-16 11:46:00 +0530] docs: clarify setup prerequisites in guide (6/6)
