@@ -490,3 +490,4 @@
 [2026-01-24 20:30:53 +0530] style: standardize formatting and lint rules (2/8)
 [2026-01-24 11:10:51 +0530] fix: address null pointer exception in parser (3/8)
 [2026-01-24 14:32:26 +0530] ci: fine-tune workflow build pipeline (4/8)
+[2026-01-24 19:02:20 +0530] docs: update API documentation and examples (5/8)
