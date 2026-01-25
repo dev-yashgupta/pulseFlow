@@ -497,3 +497,4 @@
 [2026-01-25 17:37:54 +0530] feat: enhance dashboard metrics visualization (1/7)
 [2026-01-25 21:04:36 +0530] test: add integration test cases (2/7)
 [2026-01-25 08:34:29 +0530] perf: optimize database query throughput (3/7)
+[2026-01-25 14:05:07 +0530] chore: clean up deprecated helpers (4/7)
