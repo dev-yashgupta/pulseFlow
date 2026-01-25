@@ -500,3 +500,4 @@
 [2026-01-25 14:05:07 +0530] chore: clean up deprecated helpers (4/7)
 [2026-01-25 21:29:35 +0530] test: add unit coverage for core services (5/7)
 [2026-01-25 20:39:48 +0530] perf: cache frequently accessed lookup tables (6/7)
+[2026-01-25 09:31:50 +0530] docs: clarify setup prerequisites in guide (7/7)
