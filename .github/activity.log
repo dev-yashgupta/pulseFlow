@@ -517,3 +517,4 @@
 [2026-01-28 20:30:51 +0530] refactor: streamline state management logic (4/7)
 [2026-01-28 11:30:08 +0530] feat: enhance dashboard metrics visualization (5/7)
 [2026-01-28 11:47:04 +0530] perf: optimize database query throughput (6/7)
+[2026-01-28 15:56:25 +0530] docs: clarify setup prerequisites in guide (7/7)
