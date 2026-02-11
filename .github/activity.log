@@ -620,3 +620,4 @@
 [2026-02-11 22:19:32 +0530] test: add integration test cases (4/11)
 [2026-02-11 16:04:19 +0530] fix: correct timezone handling in scheduler (5/11)
 [2026-02-11 14:54:07 +0530] test: add unit coverage for core services (6/11)
+[2026-02-11 10:02:54 +0530] chore: clean up deprecated helpers (7/11)
