@@ -614,3 +614,4 @@
 [2026-02-10 22:13:57 +0530] test: add integration test cases (5/7)
 [2026-02-10 16:58:29 +0530] style: remove redundant CSS declarations (6/7)
 [2026-02-10 10:11:48 +0530] docs: update API documentation and examples (7/7)
+[2026-02-11 10:02:21 +0530] chore: clean up deprecated helpers (1/11)
