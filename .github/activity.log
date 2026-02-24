@@ -710,3 +710,4 @@
 [2026-02-23 18:08:30 +0530] test: add integration test cases (4/5)
 [2026-02-23 20:19:42 +0530] chore: clean up deprecated helpers (5/5)
 [2026-02-24 17:02:28 +0530] refactor: modularize authentication middleware (1/10)
+[2026-02-24 20:30:58 +0530] chore: clean up deprecated helpers (2/10)
