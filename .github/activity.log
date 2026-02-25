@@ -722,3 +722,4 @@
 [2026-02-25 19:04:00 +0530] docs: clarify setup prerequisites in guide (1/5)
 [2026-02-25 11:56:45 +0530] fix: correct timezone handling in scheduler (2/5)
 [2026-02-25 13:20:52 +0530] build: update dependencies to latest patch versions (3/5)
+[2026-02-25 19:58:16 +0530] fix: address null pointer exception in parser (4/5)
