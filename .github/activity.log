@@ -805,3 +805,4 @@
 [2026-03-08 14:17:21 +0530] feat: implement real-time event notifications (2/3)
 [2026-03-08 15:50:29 +0530] test: add unit coverage for core services (3/3)
 [2026-03-09 14:12:29 +0530] fix: correct timezone handling in scheduler (1/5)
+[2026-03-09 12:14:03 +0530] docs: clarify setup prerequisites in guide (2/5)
