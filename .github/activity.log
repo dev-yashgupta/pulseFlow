@@ -860,3 +860,4 @@
 [2026-03-15 14:43:01 +0530] perf: reduce memory consumption in background worker (10/11)
 [2026-03-15 16:11:04 +0530] chore: clean up deprecated helpers (11/11)
 [2026-03-16 09:53:41 +0530] test: add unit coverage for core services (1/11)
+[2026-03-16 12:33:00 +0530] fix: address null pointer exception in parser (2/11)
