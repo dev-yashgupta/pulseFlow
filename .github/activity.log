@@ -880,3 +880,4 @@
 [2026-03-17 14:46:01 +0530] feat: implement real-time event notifications (8/9)
 [2026-03-17 16:15:50 +0530] test: add unit coverage for core services (9/9)
 [2026-03-18 18:22:55 +0530] style: remove redundant CSS declarations (1/6)
+[2026-03-18 16:29:17 +0530] chore: clean up deprecated helpers (2/6)
