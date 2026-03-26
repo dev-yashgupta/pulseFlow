@@ -945,3 +945,4 @@
 [2026-03-26 20:50:39 +0530] style: remove redundant CSS declarations (4/10)
 [2026-03-26 12:15:42 +0530] fix: address null pointer exception in parser (5/10)
 [2026-03-26 08:25:34 +0530] chore: clean up deprecated helpers (6/10)
+[2026-03-26 16:03:29 +0530] chore: clean up deprecated helpers (7/10)
