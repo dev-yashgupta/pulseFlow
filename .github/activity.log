@@ -1020,3 +1020,4 @@
 [2026-04-04 16:24:40 +0530] refactor: streamline state management logic (2/7)
 [2026-04-04 12:21:44 +0530] fix: address null pointer exception in parser (3/7)
 [2026-04-04 22:23:21 +0530] chore: clean up deprecated helpers (4/7)
+[2026-04-04 20:19:01 +0530] docs: update API documentation and examples (5/7)
