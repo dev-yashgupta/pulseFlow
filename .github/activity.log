@@ -1036,3 +1036,4 @@
 [2026-04-06 12:40:46 +0530] style: standardize formatting and lint rules (5/10)
 [2026-04-06 18:29:35 +0530] feat: enhance dashboard metrics visualization (6/10)
 [2026-04-06 10:00:44 +0530] style: remove redundant CSS declarations (7/10)
+[2026-04-06 14:11:18 +0530] chore: clean up deprecated helpers (8/10)
