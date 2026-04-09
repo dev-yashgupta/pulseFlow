@@ -1052,3 +1052,4 @@
 [2026-04-09 15:03:54 +0530] perf: cache frequently accessed lookup tables (1/4)
 [2026-04-09 11:13:49 +0530] style: standardize formatting and lint rules (2/4)
 [2026-04-09 16:44:45 +0530] build: update dependencies to latest patch versions (3/4)
+[2026-04-09 11:47:53 +0530] docs: clarify setup prerequisites in guide (4/4)
