@@ -1093,3 +1093,4 @@
 [2026-04-15 10:16:48 +0530] feat: implement real-time event notifications (8/10)
 [2026-04-15 22:13:31 +0530] style: remove redundant CSS declarations (9/10)
 [2026-04-15 22:06:12 +0530] perf: optimize database query throughput (10/10)
+[2026-04-16 16:13:14 +0530] docs: clarify setup prerequisites in guide (1/3)
