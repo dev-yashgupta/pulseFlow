@@ -1103,3 +1103,4 @@
 [2026-04-17 21:25:29 +0530] style: standardize formatting and lint rules (5/8)
 [2026-04-17 22:40:27 +0530] ci: fine-tune workflow build pipeline (6/8)
 [2026-04-17 19:13:14 +0530] refactor: modularize authentication middleware (7/8)
+[2026-04-17 21:30:02 +0530] docs: clarify setup prerequisites in guide (8/8)
