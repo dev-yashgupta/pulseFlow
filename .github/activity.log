@@ -1130,3 +1130,4 @@
 [2026-04-21 11:23:39 +0530] perf: optimize database query throughput (3/11)
 [2026-04-21 10:55:13 +0530] style: remove redundant CSS declarations (4/11)
 [2026-04-21 20:00:14 +0530] fix: address null pointer exception in parser (5/11)
+[2026-04-21 08:07:46 +0530] chore: clean up deprecated helpers (6/11)
