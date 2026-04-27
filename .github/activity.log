@@ -1172,3 +1172,4 @@
 [2026-04-27 13:19:15 +0530] feat: implement real-time event notifications (3/9)
 [2026-04-27 10:41:24 +0530] test: add unit coverage for core services (4/9)
 [2026-04-27 11:45:38 +0530] fix: address null pointer exception in parser (5/9)
+[2026-04-27 22:59:38 +0530] docs: clarify setup prerequisites in guide (6/9)
