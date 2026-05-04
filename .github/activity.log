@@ -1220,3 +1220,4 @@
 [2026-05-03 15:30:05 +0530] docs: update API documentation and examples (4/4)
 [2026-05-04 18:15:56 +0530] style: remove redundant CSS declarations (1/5)
 [2026-05-04 20:58:35 +0530] ci: fine-tune workflow build pipeline (2/5)
+[2026-05-04 10:44:27 +0530] fix: address null pointer exception in parser (3/5)
