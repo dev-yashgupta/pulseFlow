@@ -1236,3 +1236,4 @@
 [2026-05-06 19:12:26 +0530] perf: optimize database query throughput (7/10)
 [2026-05-06 20:34:28 +0530] perf: cache frequently accessed lookup tables (8/10)
 [2026-05-06 14:26:10 +0530] test: add integration test cases (9/10)
+[2026-05-06 21:30:21 +0530] chore: clean up deprecated helpers (10/10)
