@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { interventionEngine } from '@/lib/interventions/interventionEngine';
 import { burnoutPredictor } from '@/lib/ml/burnoutPredictor';
 import { authServer } from '@/lib/auth/auth';
-import { userService, wellbeingService, productivityService } from '@/lib/database/services';
+import { userService, wellbeingService, productivityService, interventionHistoryService } from '@/lib/database/services';
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,6 +24,12 @@ export async function POST(request: NextRequest) {
     const wellbeingData = await wellbeingService.getWellbeingMetrics(targetUserId, 30);
     const productivityData = await productivityService.getProductivityMetrics(targetUserId, 30);
 
+    // Calculate tenure in months
+    const createdAt = new Date(userProfile.createdAt);
+    const now = new Date();
+    const tenureMonths = (now.getFullYear() - createdAt.getFullYear()) * 12 + 
+                         (now.getMonth() - createdAt.getMonth());
+
     // Generate burnout prediction
     const burnoutPrediction = burnoutPredictor.predict({
       wellbeingMetrics: wellbeingData,
@@ -31,7 +37,7 @@ export async function POST(request: NextRequest) {
       userProfile: {
         role: userProfile.role,
         department: userProfile.department,
-        tenure: 12 // Mock tenure - would calculate from created_at
+        tenure: Math.max(1, tenureMonths) // At least 1 month
       }
     });
 
@@ -52,6 +58,21 @@ export async function POST(request: NextRequest) {
 
     // Execute interventions
     const actions = await interventionEngine.analyzeAndIntervene(context);
+
+    // Save intervention records to database
+    for (const action of actions) {
+      try {
+        await interventionHistoryService.createInterventionRecord({
+          userId: targetUserId,
+          type: action.type,
+          priority: action.priority,
+          message: action.message,
+          status: 'completed'
+        });
+      } catch (error) {
+        console.error('Error saving intervention record:', error);
+      }
+    }
 
     return NextResponse.json({
       success: true,
@@ -84,33 +105,23 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId') || user.id;
 
-    // Get recent intervention history (mock data for demo)
-    const interventionHistory = [
-      {
-        id: '1',
-        timestamp: new Date().toISOString(),
-        type: 'slack_message',
-        priority: 'medium',
-        message: 'Wellbeing check-in sent',
-        status: 'completed'
-      },
-      {
-        id: '2',
-        timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-        type: 'manager_alert',
-        priority: 'high',
-        message: 'Manager notified of increased stress levels',
-        status: 'completed'
-      }
-    ];
+    // Get recent intervention history from database
+    const interventionHistory = await interventionHistoryService.getRecentInterventions(userId, 20);
 
     return NextResponse.json({
       success: true,
       data: {
         userId,
-        interventionHistory,
+        interventionHistory: interventionHistory.map(record => ({
+          id: record.id,
+          timestamp: record.created_at,
+          type: record.type,
+          priority: record.priority,
+          message: record.message,
+          status: record.status
+        })),
         totalInterventions: interventionHistory.length,
-        lastIntervention: interventionHistory[0]?.timestamp
+        lastIntervention: interventionHistory[0]?.created_at
       }
     });
   } catch (error) {

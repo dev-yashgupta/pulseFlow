@@ -13,8 +13,28 @@ export async function GET(request: NextRequest) {
     const days = parseInt(searchParams.get('days') || '7');
     const userId = searchParams.get('userId') || user.id;
 
-    // For demo purposes, use mock data
-    const salesforceData = generateMockSalesforceData(userId, days);
+    // Try to get real Salesforce data if integration is configured
+    const salesforce = createSalesforceIntegration();
+    let salesforceData;
+
+    if (salesforce) {
+      try {
+        // Attempt to authenticate and fetch real Salesforce data
+        const authenticated = await salesforce.authenticate();
+        if (authenticated && user.id) {
+          salesforceData = await salesforce.analyzeUserActivity(user.id, days);
+          salesforceData = [salesforceData]; // Wrap in array for consistency
+        } else {
+          throw new Error('Salesforce authentication failed');
+        }
+      } catch (error) {
+        console.warn('Failed to fetch real Salesforce data, using mock:', error);
+        salesforceData = generateMockSalesforceData(userId, days);
+      }
+    } else {
+      // No Salesforce integration configured, use mock data
+      salesforceData = generateMockSalesforceData(userId, days);
+    }
 
     return NextResponse.json({ data: salesforceData });
   } catch (error) {

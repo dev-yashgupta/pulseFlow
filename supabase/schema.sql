@@ -138,6 +138,17 @@ CREATE TABLE organization_metrics (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- Intervention history table
+CREATE TABLE intervention_history (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    type VARCHAR(50) NOT NULL,
+    priority VARCHAR(20) CHECK (priority IN ('low', 'medium', 'high', 'critical')) NOT NULL,
+    message TEXT NOT NULL,
+    status VARCHAR(50) DEFAULT 'completed',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Create indexes for better performance
 CREATE INDEX idx_wellbeing_metrics_user_date ON wellbeing_metrics(user_id, date);
 CREATE INDEX idx_productivity_metrics_user_date ON productivity_metrics(user_id, date);
@@ -145,6 +156,7 @@ CREATE INDEX idx_wellbeing_alerts_user_created ON wellbeing_alerts(user_id, crea
 CREATE INDEX idx_recommendations_user_created ON recommendations(user_id, created_at);
 CREATE INDEX idx_slack_data_user_date ON slack_data(user_id, date);
 CREATE INDEX idx_salesforce_data_user_date ON salesforce_data(user_id, date);
+CREATE INDEX idx_intervention_history_user_created ON intervention_history(user_id, created_at);
 
 -- Create updated_at trigger function
 CREATE OR REPLACE FUNCTION update_updated_at_column()

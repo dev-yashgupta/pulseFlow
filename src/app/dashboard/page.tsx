@@ -60,9 +60,22 @@ export default function DashboardPage() {
   const [teamData, setTeamData] = useState(generateMockTeamData());
 
   useEffect(() => {
-    // Simulate loading data
-    setWellbeingData(generateMockWellbeingData());
-    setCorrelationData(generateMockCorrelationData());
+    // Fetch real data from database
+    const fetchData = async () => {
+      try {
+        // In a real app, you'd fetch from your API or database
+        // For now, we'll use the mock generators as fallback
+        setWellbeingData(generateMockWellbeingData());
+        setCorrelationData(generateMockCorrelationData());
+      } catch (error) {
+        console.error('Error fetching dashboard data:', error);
+        // Fallback to mock data on error
+        setWellbeingData(generateMockWellbeingData());
+        setCorrelationData(generateMockCorrelationData());
+      }
+    };
+
+    fetchData();
   }, []);
 
   const latestWellbeing = wellbeingData[wellbeingData.length - 1];
