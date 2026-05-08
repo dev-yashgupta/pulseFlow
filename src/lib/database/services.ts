@@ -114,17 +114,17 @@ export const wellbeingService = {
       .select('stress_level, energy_level, workload_satisfaction, work_life_balance, job_satisfaction')
       .eq('user_id', userId)
       .order('date', { ascending: false })
-      .limit(1)
-      .single();
+      .limit(1);
     
-    if (error || !data) return 0;
+    if (error || !data || data.length === 0) return 0;
     
+    const latestData = data[0];
     const scores = [
-      data.stress_level,
-      data.energy_level,
-      data.workload_satisfaction,
-      data.work_life_balance,
-      data.job_satisfaction
+      latestData.stress_level,
+      latestData.energy_level,
+      latestData.workload_satisfaction,
+      latestData.work_life_balance,
+      latestData.job_satisfaction
     ];
     
     return scores.reduce((sum, score) => sum + score, 0) / scores.length;
@@ -136,11 +136,10 @@ export const wellbeingService = {
       .select('burnout_risk')
       .eq('user_id', userId)
       .order('date', { ascending: false })
-      .limit(1)
-      .single();
+      .limit(1);
     
-    if (error || !data) return 0;
-    return data.burnout_risk;
+    if (error || !data || data.length === 0) return 0;
+    return data[0]?.burnout_risk || 0;
   }
 };
 
@@ -299,5 +298,59 @@ export const teamService = {
       .eq('id', teamId);
     
     if (error) throw error;
+  }
+};
+
+// Intervention history services
+export const interventionHistoryService = {
+  async createInterventionRecord(record: {
+    userId: string;
+    type: 'slack_message' | 'manager_alert' | 'recommendation' | 'calendar_block' | 'workload_adjustment';
+    priority: 'low' | 'medium' | 'high' | 'critical';
+    message: string;
+    status: string;
+  }): Promise<any> {
+    const { data, error } = await getSupabaseClient()
+      .from('intervention_history')
+      .insert({
+        user_id: record.userId,
+        type: record.type,
+        priority: record.priority,
+        message: record.message,
+        status: record.status,
+        created_at: new Date().toISOString()
+      })
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return data;
+  },
+
+  async getInterventionHistory(userId: string, days: number = 30): Promise<any[]> {
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - days);
+    
+    const { data, error } = await getSupabaseClient()
+      .from('intervention_history')
+      .select('*')
+      .eq('user_id', userId)
+      .gte('created_at', startDate.toISOString())
+      .order('created_at', { ascending: false });
+    
+    if (error) throw error;
+    return data || [];
+  },
+
+  async getRecentInterventions(userId: string, limit: number = 10): Promise<any[]> {
+    const { data, error } = await getSupabaseClient()
+      .from('intervention_history')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false })
+      .limit(limit);
+    
+    if (error) throw error;
+    return data || [];
   }
 };

@@ -267,10 +267,11 @@ export class InterventionEngine {
     );
 
     // Create alert in database
+    const severity = action.priority as 'low' | 'medium' | 'high' | 'critical';
     await alertService.createAlert({
       userId: context.user.id,
       type: 'burnout_risk',
-      severity: action.priority as any,
+      severity,
       message: action.message,
       actionRequired: true
     });
@@ -315,7 +316,8 @@ export class InterventionEngine {
             userProfile: {
               role: user.role,
               department: user.department,
-              tenure: 12 // Mock tenure
+              tenure: Math.max(1, (new Date().getFullYear() - new Date(user.createdAt).getFullYear()) * 12 + 
+                               (new Date().getMonth() - new Date(user.createdAt).getMonth()))
             }
           })
         };

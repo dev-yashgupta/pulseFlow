@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
 // Client-side Supabase client
 export const supabase = supabaseUrl && supabaseAnonKey
@@ -24,17 +25,26 @@ export async function createServerSupabaseClient() {
   return createClient(supabaseUrl, supabaseAnonKey);
 }
 
-// Admin client for server-side operations
-export const supabaseAdmin = createClient(
-  supabaseUrl,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false
+// Admin client for server-side operations (lazy initialized)
+let supabaseAdminInstance: any = null;
+
+export function getSupabaseAdmin() {
+  if (!supabaseAdminInstance) {
+    if (!supabaseUrl || !supabaseServiceKey) {
+      console.warn('Supabase admin credentials not configured');
+      return null;
     }
+    supabaseAdminInstance = createClient(supabaseUrl, supabaseServiceKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false
+      }
+    });
   }
-);
+  return supabaseAdminInstance;
+}
+
+export const supabaseAdmin = getSupabaseAdmin();
 
 // Database types
 export interface Database {

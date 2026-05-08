@@ -13,8 +13,23 @@ export async function GET(request: NextRequest) {
     const days = parseInt(searchParams.get('days') || '7');
     const userId = searchParams.get('userId') || user.id;
 
-    // For demo purposes, use mock data
-    const slackData = generateMockSlackData(userId, days);
+    // Try to get real Slack data if integration is configured
+    const slack = createSlackIntegration();
+    let slackData;
+
+    if (slack && user.id) {
+      try {
+        // Attempt to fetch real Slack data
+        slackData = await slack.analyzeUserActivity(user.id, days);
+        slackData = [slackData]; // Wrap in array for consistency
+      } catch (error) {
+        console.warn('Failed to fetch real Slack data, using mock:', error);
+        slackData = generateMockSlackData(userId, days);
+      }
+    } else {
+      // No Slack integration configured, use mock data
+      slackData = generateMockSlackData(userId, days);
+    }
 
     return NextResponse.json({ data: slackData });
   } catch (error) {

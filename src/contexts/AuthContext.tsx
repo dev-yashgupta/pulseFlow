@@ -67,7 +67,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     });
 
     return () => {
-      if (subscription && subscription.data && subscription.data.subscription && typeof subscription.data.subscription.unsubscribe === 'function') {
+      // Clean up the Supabase auth subscription
+      if (subscription && subscription.data && subscription.data.subscription) {
         subscription.data.subscription.unsubscribe();
       }
     };
