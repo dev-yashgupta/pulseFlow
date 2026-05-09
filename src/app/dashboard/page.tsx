@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Activity, Brain, Users, TrendingUp, AlertTriangle, Bell } from 'lucide-react';
 import WellbeingChart from '@/components/dashboard/WellbeingChart';
 import ProductivityCorrelationChart from '@/components/dashboard/ProductivityCorrelationChart';
@@ -9,14 +10,37 @@ import { dataUtils, numberUtils } from '@/lib/utils';
 import type { WellbeingMetric, CorrelationData } from '@/types';
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [wellbeingData, setWellbeingData] = useState<WellbeingMetric[]>([]);
   const [correlationData, setCorrelationData] = useState<CorrelationData[]>([]);
   const [teamData, setTeamData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // Check authentication
   useEffect(() => {
-    // Fetch real data from database
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/me');
+        if (!response.ok) {
+          router.push('/auth/login');
+          return;
+        }
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        router.push('/auth/login');
+      }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  // Fetch data when authenticated
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
     const fetchData = async () => {
       try {
         setIsLoading(true);
@@ -41,14 +65,14 @@ export default function DashboardPage() {
         setTeamData(teamJson.data || []);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
-        setError('Failed to load dashboard data. Please ensure you have database configured.');
+        setError('Failed to load dashboard data. Please ensure database is configured.');
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [isAuthenticated]);
 
   if (isLoading) {
     return (
@@ -79,26 +103,19 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
+      <header className="bg-white shadow">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex justify-between items-center">
             <div className="flex items-center space-x-2">
               <Activity className="h-8 w-8 text-blue-600" />
-              <span className="text-2xl font-bold text-gray-900">PulseFlow</span>
+              <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <button className="relative p-2 text-gray-600 hover:text-gray-900">
-                <Bell className="h-6 w-6" />
-                {highRiskCount > 0 && (
-                  <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
-                    {highRiskCount}
-                  </span>
-                )}
-              </button>
-              <div className="text-sm text-gray-600">
-                Welcome back, <span className="font-medium">Demo User</span>
-              </div>
-            </div>
+            <button 
+              onClick={() => router.push('/auth/login')}
+              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+            >
+              Sign Out
+            </button>
           </div>
         </div>
       </header>
@@ -106,109 +123,69 @@ export default function DashboardPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Key Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Overall Wellbeing</p>
-                <p className="text-2xl font-bold text-blue-600">
-                  {numberUtils.formatDecimal(avgWellbeing, 1)}/10
-                </p>
-              </div>
-              <Brain className="h-8 w-8 text-blue-600" />
-            </div>
+          <div className="bg-white rounded-lg shadow p-6">
+            <p className="text-gray-600 text-sm font-medium">Avg Wellbeing</p>
+            <p className="text-3xl font-bold text-gray-900">{(avgWellbeing / 2).toFixed(1)}/5</p>
           </div>
-
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Burnout Risk</p>
-                <p className="text-2xl font-bold text-orange-600">
-                  {latestWellbeing ? numberUtils.formatPercentage(latestWellbeing.burnoutRisk) : '0%'}
-                </p>
-              </div>
-              <AlertTriangle className="h-8 w-8 text-orange-600" />
-            </div>
+          <div className="bg-white rounded-lg shadow p-6">
+            <p className="text-gray-600 text-sm font-medium">Team Size</p>
+            <p className="text-3xl font-bold text-gray-900">{teamData.length}</p>
           </div>
-
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Team Health</p>
-                <p className="text-2xl font-bold text-green-600">
-                  {numberUtils.formatDecimal(dataUtils.calculateAverage(teamData.map(t => t.wellbeingScore)), 1)}/10
-                </p>
-              </div>
-              <Users className="h-8 w-8 text-green-600" />
-            </div>
+          <div className="bg-white rounded-lg shadow p-6">
+            <p className="text-gray-600 text-sm font-medium">At Risk</p>
+            <p className="text-3xl font-bold text-red-600">{highRiskCount}</p>
           </div>
-
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Productivity</p>
-                <p className="text-2xl font-bold text-purple-600">
-                  {numberUtils.formatDecimal(dataUtils.calculateAverage(teamData.map(t => t.productivityScore)), 1)}/10
-                </p>
-              </div>
-              <TrendingUp className="h-8 w-8 text-purple-600" />
-            </div>
+          <div className="bg-white rounded-lg shadow p-6">
+            <p className="text-gray-600 text-sm font-medium">Data Points</p>
+            <p className="text-3xl font-bold text-gray-900">{wellbeingData.length}</p>
           </div>
         </div>
 
-        {/* Charts Grid */}
+        {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <WellbeingChart 
-            data={wellbeingData}
-            metric="stressLevel"
-            title="Stress Level"
-          />
-          <WellbeingChart 
-            data={wellbeingData}
-            metric="energyLevel"
-            title="Energy Level"
-          />
-          <WellbeingChart 
-            data={wellbeingData}
-            metric="burnoutRisk"
-            title="Burnout Risk"
-          />
-          <WellbeingChart 
-            data={wellbeingData}
-            metric="workLifeBalance"
-            title="Work-Life Balance"
-          />
-        </div>
-
-        {/* Correlation and Team Health */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
-          <ProductivityCorrelationChart data={correlationData} />
-          <TeamHealthHeatmap 
-            teamMembers={teamData}
-            teamName="Engineering Team"
-          />
-        </div>
-
-        {/* Alerts and Recommendations */}
-        {highRiskCount > 0 && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-            <div className="flex items-center space-x-2 mb-4">
-              <AlertTriangle className="h-5 w-5 text-red-600" />
-              <h3 className="text-lg font-semibold text-red-800">Immediate Attention Required</h3>
-            </div>
-            <p className="text-red-700 mb-4">
-              {highRiskCount} team member{highRiskCount > 1 ? 's are' : ' is'} showing high burnout risk. 
-              Consider immediate intervention.
-            </p>
-            <div className="flex space-x-3">
-              <button className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
-                Schedule Check-ins
-              </button>
-              <button className="border border-red-600 text-red-600 px-4 py-2 rounded-lg hover:bg-red-50">
-                View Details
-              </button>
-            </div>
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Stress Levels</h2>
+            {wellbeingData.length > 0 ? (
+              <WellbeingChart data={wellbeingData} metric="stressLevel" title="Stress Level Trend" />
+            ) : (
+              <p className="text-gray-600">No data available</p>
+            )}
           </div>
-        )}
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Energy Levels</h2>
+            {wellbeingData.length > 0 ? (
+              <WellbeingChart data={wellbeingData} metric="energyLevel" title="Energy Level Trend" />
+            ) : (
+              <p className="text-gray-600">No data available</p>
+            )}
+          </div>
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Burnout Risk</h2>
+            {wellbeingData.length > 0 ? (
+              <WellbeingChart data={wellbeingData} metric="burnoutRisk" title="Burnout Risk Trend" />
+            ) : (
+              <p className="text-gray-600">No data available</p>
+            )}
+          </div>
+          <div className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Work-Life Balance</h2>
+            {wellbeingData.length > 0 ? (
+              <WellbeingChart data={wellbeingData} metric="workLifeBalance" title="Work-Life Balance Trend" />
+            ) : (
+              <p className="text-gray-600">No data available</p>
+            )}
+          </div>
+        </div>
+
+        {/* Team Health */}
+        <div className="bg-white rounded-lg shadow p-6 mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Team Health</h2>
+          {teamData.length > 0 ? (
+            <TeamHealthHeatmap teamMembers={teamData} teamName="Engineering Team" />
+          ) : (
+            <p className="text-gray-600">No team data available</p>
+          )}
+        </div>
       </main>
     </div>
   );

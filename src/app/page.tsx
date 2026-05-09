@@ -15,8 +15,8 @@ export default function Home() {
             <nav className="hidden md:flex space-x-8">
               <Link href="#features" className="text-gray-600 hover:text-gray-900">Features</Link>
               <Link href="#benefits" className="text-gray-600 hover:text-gray-900">Benefits</Link>
-              <Link href="/dashboard" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                Get Started
+              <Link href="/auth/login" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                Sign In
               </Link>
             </nav>
           </div>
@@ -35,11 +35,11 @@ export default function Home() {
             predicting burnout and optimizing team performance in real-time.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/dashboard" className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700">
-              View Dashboard
+            <Link href="/auth/login" className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700">
+              Sign In to Dashboard
             </Link>
-            <Link href="#demo" className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-50">
-              Watch Demo
+            <Link href="#features" className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-50">
+              Learn More
             </Link>
           </div>
         </div>
