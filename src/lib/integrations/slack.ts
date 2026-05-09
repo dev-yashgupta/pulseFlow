@@ -198,30 +198,18 @@ export class SlackIntegration {
 // Factory function to create Slack integration
 export function createSlackIntegration(): SlackIntegration | null {
   const token = process.env.SLACK_BOT_TOKEN;
+
+  if (!token) {
+    console.error('Slack bot token not configured. Set SLACK_BOT_TOKEN environment variable.');
+    return null;
+  }
+
+  return new SlackIntegration(token);
+}
+  const token = process.env.SLACK_BOT_TOKEN;
   if (!token) {
     console.warn('SLACK_BOT_TOKEN not configured');
     return null;
   }
   return new SlackIntegration(token);
-}
-
-// Mock data generator for development
-export function generateMockSlackData(userId: string, days: number = 7): SlackData[] {
-  const data: SlackData[] = [];
-  
-  for (let i = 0; i < days; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
-    
-    data.push({
-      userId,
-      date,
-      messageCount: Math.floor(Math.random() * 50) + 10,
-      sentimentScore: (Math.random() - 0.5) * 1.5, // -0.75 to 0.75
-      responseTime: Math.random() * 4 + 0.5, // 0.5 to 4.5 hours
-      activeHours: Math.floor(Math.random() * 8) + 4 // 4 to 12 hours
-    });
-  }
-  
-  return data.reverse(); // Oldest first
 }
