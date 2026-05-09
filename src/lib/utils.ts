@@ -110,13 +110,6 @@ export const dataUtils = {
   
   normalizeScore: (value: number, min: number, max: number) => {
     return Math.max(0, Math.min(1, (value - min) / (max - min)));
-  },
-  
-  generateMockData: (days: number, baseValue: number, variance: number) => {
-    return Array.from({ length: days }, (_, i) => ({
-      date: format(subDays(new Date(), days - i - 1), 'yyyy-MM-dd'),
-      value: baseValue + (Math.random() - 0.5) * variance
-    }));
   }
 };
 
