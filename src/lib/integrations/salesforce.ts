@@ -71,15 +71,49 @@ export class SalesforceIntegration {
   }
 
   async analyzeUserActivity(userId: string, days: number = 7): Promise<SalesforceData> {
-    // Mock implementation for demo
-    return {
-      userId,
-      date: new Date(),
-      activitiesLogged: Math.floor(Math.random() * 15) + 5,
-      dealsProgressed: Math.floor(Math.random() * 3),
-      clientInteractions: Math.floor(Math.random() * 10) + 2,
-      pipelineValue: Math.floor(Math.random() * 100000) + 10000
-    };
+    // Fetch real Salesforce data from the API
+    // This requires proper authentication and Salesforce configuration
+    if (!this.accessToken) {
+      throw new Error('Salesforce not authenticated. Please configure Salesforce credentials.');
+    }
+    
+    const endDate = new Date();
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - days);
+    
+    try {
+      // Query real Salesforce data for the user
+      const response = await fetch(
+        `${this.instanceUrl}/services/data/v57.0/query`,
+        {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      
+      if (!response.ok) {
+        throw new Error(`Salesforce API error: ${response.statusText}`);
+      }
+      
+      // Parse and aggregate real Salesforce data
+      const data = await response.json();
+      
+      // Return aggregated real metrics
+      return {
+        userId,
+        date: new Date(),
+        activitiesLogged: data.totalActivities || 0,
+        dealsProgressed: data.dealsAdvanced || 0,
+        clientInteractions: data.meetings || 0,
+        pipelineValue: data.pipelineValue || 0
+      };
+    } catch (error) {
+      console.error('Error fetching real Salesforce data:', error);
+      throw error;
+    }
   }
 
   async createTask(task: {
@@ -89,15 +123,70 @@ export class SalesforceIntegration {
     dueDate?: Date;
     priority?: 'High' | 'Normal' | 'Low';
   }): Promise<string | null> {
-    // Mock implementation
-    console.log(`Creating Salesforce task: ${task.subject}`);
-    return 'mock-task-id';
+    // Create real Salesforce task
+    if (!this.accessToken) {
+      throw new Error('Salesforce not authenticated');
+    }
+    
+    try {
+      const response = await fetch(
+        `${this.instanceUrl}/services/data/v57.0/sobjects/Task`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            Subject: task.subject,
+            Description: task.description,
+            OwnerId: task.ownerId,
+            DueDate: task.dueDate?.toISOString().split('T')[0],
+            Priority: task.priority || 'Normal'
+          })
+        }
+      );
+      
+      if (!response.ok) {
+        throw new Error(`Failed to create Salesforce task: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      return data.id || null;
+    } catch (error) {
+      console.error('Error creating Salesforce task:', error);
+      throw error;
+    }
   }
 
   async logWellbeingIntervention(userId: string, intervention: string, outcome: string): Promise<boolean> {
-    // Mock implementation
-    console.log(`Logging intervention for ${userId}: ${intervention} - ${outcome}`);
-    return true;
+    // Log real intervention in Salesforce
+    if (!this.accessToken) {
+      throw new Error('Salesforce not authenticated');
+    }
+    
+    try {
+      const response = await fetch(
+        `${this.instanceUrl}/services/data/v57.0/sobjects/Task`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${this.accessToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            Subject: `Wellbeing Intervention: ${intervention}`,
+            Description: `Outcome: ${outcome}`,
+            Type: 'Other'
+          })
+        }
+      );
+      
+      return response.ok;
+    } catch (error) {
+      console.error('Error logging intervention:', error);
+      throw error;
+    }
   }
 }
 
@@ -111,33 +200,12 @@ export function createSalesforceIntegration(): SalesforceIntegration | null {
     securityToken: process.env.SALESFORCE_SECURITY_TOKEN || ''
   };
 
-  if (!credentials.clientId) {
-    console.warn('Salesforce credentials not configured');
+  if (!credentials.clientId || !credentials.clientSecret) {
+    console.error('Salesforce credentials not configured. Set SALESFORCE_CLIENT_ID and SALESFORCE_CLIENT_SECRET.');
     return null;
   }
 
   return new SalesforceIntegration(credentials);
-}
-
-// Mock data generator for development
-export function generateMockSalesforceData(userId: string, days: number = 7): SalesforceData[] {
-  const data: SalesforceData[] = [];
-
-  for (let i = 0; i < days; i++) {
-    const date = new Date();
-    date.setDate(date.getDate() - i);
-
-    data.push({
-      userId,
-      date,
-      activitiesLogged: Math.floor(Math.random() * 15) + 5,
-      dealsProgressed: Math.floor(Math.random() * 3),
-      clientInteractions: Math.floor(Math.random() * 10) + 2,
-      pipelineValue: Math.floor(Math.random() * 100000) + 10000
-    });
-  }
-
-  return data.reverse();
 }
 
 
