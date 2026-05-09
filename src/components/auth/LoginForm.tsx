@@ -148,40 +148,6 @@ export default function LoginForm() {
               )}
             </button>
           </div>
-
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Demo Accounts</span>
-              </div>
-            </div>
-
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('employee@pulseflow.demo');
-                  setPassword('demo123');
-                }}
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                Employee Demo
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('manager@pulseflow.demo');
-                  setPassword('demo123');
-                }}
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                Manager Demo
-              </button>
-            </div>
-          </div>
         </form>
       </div>
     </div>
