@@ -1,4 +1,5 @@
 import { createSalesforceIntegration, type SalesforceIntegration } from './salesforce';
+import { wellbeingService, productivityService } from '@/lib/database/services';
 import type { User, WellbeingMetric, ProductivityMetric } from '@/types';
 
 export interface SalesforceWellbeingReport {
@@ -103,11 +104,11 @@ export class SalesforceWellbeingReporter {
 
     // Generate reports for each team member
     for (const member of members) {
-      // Mock data for demo - in production would fetch real data
-      const mockWellbeingData: WellbeingMetric[] = [];
-      const mockProductivityData: ProductivityMetric[] = [];
+      // Fetch real wellbeing and productivity data from database
+      const wellbeingData = await wellbeingService.getWellbeingMetrics(member.id, 30);
+      const productivityData = await productivityService.getProductivityMetrics(member.id, 30);
       
-      const report = await this.generateUserReport(member, mockWellbeingData, mockProductivityData);
+      const report = await this.generateUserReport(member, wellbeingData, productivityData);
       memberReports.push(report);
 
       totalWellbeing += report.wellbeingScore;
@@ -142,12 +143,7 @@ export class SalesforceWellbeingReporter {
 
   private async getSalesPerformance(salesforceUserId: string) {
     if (!this.salesforce || !salesforceUserId) {
-      return {
-        activitiesLogged: Math.floor(Math.random() * 20) + 10,
-        dealsProgressed: Math.floor(Math.random() * 5),
-        pipelineValue: Math.floor(Math.random() * 100000) + 50000,
-        performanceRating: 'good' as const
-      };
+      throw new Error('Salesforce integration not configured. Please set up Salesforce credentials.');
     }
 
     try {
