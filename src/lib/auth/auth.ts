@@ -98,6 +98,20 @@ export const authClient = {
     return supabase.auth.onAuthStateChange((event, session) => {
       callback(session?.user as AuthUser || null);
     });
+  },
+
+  async resetPassword(email: string) {
+    const supabase = createBrowserSupabaseClient();
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth/reset-password`
+    });
+    if (error) throw error;
+  },
+
+  async confirmPasswordReset(password: string) {
+    const supabase = createBrowserSupabaseClient();
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) throw error;
   }
 };
 
