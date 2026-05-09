@@ -8,75 +8,66 @@ import TeamHealthHeatmap from '@/components/dashboard/TeamHealthHeatmap';
 import { dataUtils, numberUtils } from '@/lib/utils';
 import type { WellbeingMetric, CorrelationData } from '@/types';
 
-// Mock data for demo
-const generateMockWellbeingData = (): WellbeingMetric[] => {
-  return Array.from({ length: 30 }, (_, i) => {
-    const date = new Date();
-    date.setDate(date.getDate() - (29 - i));
-    
-    return {
-      id: `wb-${i}`,
-      userId: 'demo-user',
-      date,
-      stressLevel: Math.floor(Math.random() * 4) + 4 + Math.sin(i / 5) * 2,
-      energyLevel: Math.floor(Math.random() * 3) + 6 + Math.cos(i / 7) * 1.5,
-      workloadSatisfaction: Math.floor(Math.random() * 3) + 6 + Math.sin(i / 4) * 1,
-      workLifeBalance: Math.floor(Math.random() * 3) + 5 + Math.cos(i / 6) * 2,
-      jobSatisfaction: Math.floor(Math.random() * 2) + 7 + Math.sin(i / 8) * 1,
-      burnoutRisk: Math.max(0, Math.min(1, 0.3 + Math.sin(i / 10) * 0.3 + Math.random() * 0.2)),
-      sentimentScore: Math.random() * 0.8 - 0.2,
-      source: 'survey' as const
-    };
-  });
-};
-
-const generateMockCorrelationData = (): CorrelationData[] => {
-  return Array.from({ length: 30 }, (_, i) => {
-    const wellbeing = 0.5 + Math.random() * 0.4 + Math.sin(i / 5) * 0.1;
-    const productivity = wellbeing * 0.8 + Math.random() * 0.3; // Positive correlation with some noise
-    
-    const date = new Date();
-    date.setDate(date.getDate() - (29 - i));
-    
-    return {
-      wellbeing,
-      productivity,
-      date: date.toISOString().split('T')[0]
-    };
-  });
-};
-
-const generateMockTeamData = () => [
-  { id: '1', name: 'Sarah Chen', role: 'Senior Developer', wellbeingScore: 8.2, burnoutRisk: 0.2, productivityScore: 8.5, lastActive: new Date() },
-  { id: '2', name: 'Mike Johnson', role: 'Product Manager', wellbeingScore: 6.1, burnoutRisk: 0.7, productivityScore: 7.2, lastActive: new Date() },
-  { id: '3', name: 'Emily Davis', role: 'Designer', wellbeingScore: 7.8, burnoutRisk: 0.3, productivityScore: 8.1, lastActive: new Date() },
-  { id: '4', name: 'Alex Rodriguez', role: 'Developer', wellbeingScore: 5.2, burnoutRisk: 0.8, productivityScore: 6.1, lastActive: new Date() },
-  { id: '5', name: 'Lisa Wang', role: 'QA Engineer', wellbeingScore: 7.5, burnoutRisk: 0.4, productivityScore: 7.8, lastActive: new Date() },
-];
-
 export default function DashboardPage() {
   const [wellbeingData, setWellbeingData] = useState<WellbeingMetric[]>([]);
   const [correlationData, setCorrelationData] = useState<CorrelationData[]>([]);
-  const [teamData, setTeamData] = useState(generateMockTeamData());
+  const [teamData, setTeamData] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Fetch real data from database
     const fetchData = async () => {
       try {
-        // In a real app, you'd fetch from your API or database
-        // For now, we'll use the mock generators as fallback
-        setWellbeingData(generateMockWellbeingData());
-        setCorrelationData(generateMockCorrelationData());
+        setIsLoading(true);
+        setError(null);
+        
+        // Fetch wellbeing metrics from API
+        const wellbeingRes = await fetch('/api/wellbeing?days=30');
+        if (!wellbeingRes.ok) throw new Error('Failed to fetch wellbeing data');
+        const wellbeingJson = await wellbeingRes.json();
+        setWellbeingData(wellbeingJson.data || []);
+        
+        // Fetch correlation data from API
+        const correlationRes = await fetch('/api/correlation?days=30');
+        if (!correlationRes.ok) throw new Error('Failed to fetch correlation data');
+        const correlationJson = await correlationRes.json();
+        setCorrelationData(correlationJson.data || []);
+        
+        // Fetch team data from API
+        const teamRes = await fetch('/api/team');
+        if (!teamRes.ok) throw new Error('Failed to fetch team data');
+        const teamJson = await teamRes.json();
+        setTeamData(teamJson.data || []);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
-        // Fallback to mock data on error
-        setWellbeingData(generateMockWellbeingData());
-        setCorrelationData(generateMockCorrelationData());
+        setError('Failed to load dashboard data. Please ensure you have database configured.');
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-6">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <p className="text-red-800 font-medium">Error Loading Dashboard</p>
+          <p className="text-red-600 text-sm mt-1">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   const latestWellbeing = wellbeingData[wellbeingData.length - 1];
   const avgWellbeing = wellbeingData.length > 0 
