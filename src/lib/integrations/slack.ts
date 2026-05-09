@@ -206,6 +206,8 @@ export function createSlackIntegration(): SlackIntegration | null {
 
   return new SlackIntegration(token);
 }
+
+export function initializeSlackIntegration() {
   const token = process.env.SLACK_BOT_TOKEN;
   if (!token) {
     console.warn('SLACK_BOT_TOKEN not configured');
