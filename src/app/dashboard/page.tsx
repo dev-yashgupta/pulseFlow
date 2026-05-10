@@ -7,6 +7,7 @@ import WellbeingChart from '@/components/dashboard/WellbeingChart';
 import ProductivityCorrelationChart from '@/components/dashboard/ProductivityCorrelationChart';
 import TeamHealthHeatmap from '@/components/dashboard/TeamHealthHeatmap';
 import { dataUtils, numberUtils } from '@/lib/utils';
+import { createBrowserSupabaseClient } from '@/lib/database/supabase';
 import type { WellbeingMetric, CorrelationData } from '@/types';
 
 export default function DashboardPage() {
@@ -17,16 +18,35 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [sessionToken, setSessionToken] = useState<string | null>(null);
 
-  // Check authentication
+  // Check authentication and get session token
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch('/api/auth/me');
+        // Get the current session from Supabase client
+        const supabase = createBrowserSupabaseClient();
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (!session || !session.access_token) {
+          router.push('/auth/login');
+          return;
+        }
+
+        setSessionToken(session.access_token);
+
+        // Verify with server
+        const response = await fetch('/api/auth/me', {
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`
+          }
+        });
+
         if (!response.ok) {
           router.push('/auth/login');
           return;
         }
+
         setIsAuthenticated(true);
       } catch (error) {
         console.error('Auth check failed:', error);
@@ -39,27 +59,37 @@ export default function DashboardPage() {
 
   // Fetch data when authenticated
   useEffect(() => {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated || !sessionToken) return;
 
     const fetchData = async () => {
       try {
         setIsLoading(true);
         setError(null);
         
+        const authHeaders = {
+          'Authorization': `Bearer ${sessionToken}`
+        };
+
         // Fetch wellbeing metrics from API
-        const wellbeingRes = await fetch('/api/wellbeing?days=30');
+        const wellbeingRes = await fetch('/api/wellbeing?days=30', {
+          headers: authHeaders
+        });
         if (!wellbeingRes.ok) throw new Error('Failed to fetch wellbeing data');
         const wellbeingJson = await wellbeingRes.json();
         setWellbeingData(wellbeingJson.data || []);
         
         // Fetch correlation data from API
-        const correlationRes = await fetch('/api/correlation?days=30');
+        const correlationRes = await fetch('/api/correlation?days=30', {
+          headers: authHeaders
+        });
         if (!correlationRes.ok) throw new Error('Failed to fetch correlation data');
         const correlationJson = await correlationRes.json();
         setCorrelationData(correlationJson.data || []);
         
         // Fetch team data from API
-        const teamRes = await fetch('/api/team');
+        const teamRes = await fetch('/api/team', {
+          headers: authHeaders
+        });
         if (!teamRes.ok) throw new Error('Failed to fetch team data');
         const teamJson = await teamRes.json();
         setTeamData(teamJson.data || []);
@@ -72,7 +102,7 @@ export default function DashboardPage() {
     };
 
     fetchData();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, sessionToken]);
 
   if (isLoading) {
     return (
