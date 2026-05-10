@@ -4,25 +4,41 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
-// Client-side Supabase client
+// Singleton instance for browser client
+let browserSupabaseInstance: ReturnType<typeof createClient> | null = null;
+
+// Singleton instance for server client
+let serverSupabaseInstance: ReturnType<typeof createClient> | null = null;
+
+// Public singleton instance
 export const supabase = supabaseUrl && supabaseAnonKey
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
 
-// Browser client for client components
+// Browser client for client components (singleton pattern)
 export function createBrowserSupabaseClient() {
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Supabase configuration is missing');
+    throw new Error('Supabase configuration is missing: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY');
   }
-  return createClient(supabaseUrl, supabaseAnonKey);
+  
+  if (typeof window !== 'undefined' && !browserSupabaseInstance) {
+    browserSupabaseInstance = createClient(supabaseUrl, supabaseAnonKey);
+  }
+  
+  return browserSupabaseInstance || createClient(supabaseUrl, supabaseAnonKey);
 }
 
-// Server client for server components and API routes
+// Server client for server components and API routes (singleton pattern)
 export async function createServerSupabaseClient() {
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Supabase configuration is missing');
+    throw new Error('Supabase configuration is missing: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY');
   }
-  return createClient(supabaseUrl, supabaseAnonKey);
+  
+  if (!serverSupabaseInstance) {
+    serverSupabaseInstance = createClient(supabaseUrl, supabaseAnonKey);
+  }
+  
+  return serverSupabaseInstance;
 }
 
 // Admin client for server-side operations (lazy initialized)
@@ -31,7 +47,11 @@ let supabaseAdminInstance: any = null;
 export function getSupabaseAdmin() {
   if (!supabaseAdminInstance) {
     if (!supabaseUrl || !supabaseServiceKey) {
-      console.warn('Supabase admin credentials not configured');
+      // Admin key is optional - only needed for server-side admin operations
+      // Suppress warning in development
+      if (process.env.NODE_ENV === 'production') {
+        console.warn('Supabase admin credentials not configured');
+      }
       return null;
     }
     supabaseAdminInstance = createClient(supabaseUrl, supabaseServiceKey, {

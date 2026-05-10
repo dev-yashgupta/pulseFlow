@@ -28,11 +28,42 @@ export default function LoginForm() {
     setIsLoading(true);
     setError('');
 
+    // Validate inputs
+    if (!email.trim()) {
+      setError('Email is required');
+      setIsLoading(false);
+      return;
+    }
+    if (!password.trim()) {
+      setError('Password is required');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      await authClient.signIn({ email, password });
-      router.push('/dashboard');
+      const response = await authClient.signIn({ email, password });
+      
+      if (response && response.user) {
+        // Add delay to ensure session is established
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 500);
+      }
     } catch (err: any) {
-      setError(err.message || 'An error occurred during sign in');
+      const errorMessage = err.message?.toLowerCase() || '';
+      
+      if (errorMessage.includes('invalid login credentials')) {
+        setError('Invalid email or password. Please check and try again.');
+      } else if (errorMessage.includes('user not found')) {
+        setError('No account found with this email. Please sign up first.');
+      } else if (errorMessage.includes('email not confirmed')) {
+        setError('Please confirm your email address before signing in.');
+      } else if (errorMessage.includes('network')) {
+        setError('Network error. Please check your connection and try again.');
+      } else {
+        setError(err.message || 'Failed to sign in. Please try again.');
+      }
+      console.error('Sign in error:', err);
     } finally {
       setIsLoading(false);
     }
