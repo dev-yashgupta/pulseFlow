@@ -6,8 +6,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  serverExternalPackages: ['@slack/bolt'],
-  output: 'standalone'
+  serverExternalPackages: ['@slack/bolt']
 };
 
 module.exports = nextConfig;
