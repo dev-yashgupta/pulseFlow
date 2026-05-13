@@ -1282,3 +1282,4 @@
 [2026-05-12 21:53:33 +0530] perf: reduce memory consumption in background worker (6/8)
 [2026-05-12 08:09:13 +0530] feat: improve responsive layout on mobile view (7/8)
 [2026-05-12 16:16:58 +0530] perf: reduce memory consumption in background worker (8/8)
+[2026-05-13 19:12:38 +0530] chore: clean up deprecated helpers (1/9)
