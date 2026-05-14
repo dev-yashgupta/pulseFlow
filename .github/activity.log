@@ -1298,3 +1298,4 @@
 [2026-05-14 09:53:58 +0530] fix: address null pointer exception in parser (5/9)
 [2026-05-14 20:04:13 +0530] perf: cache frequently accessed lookup tables (6/9)
 [2026-05-14 08:13:41 +0530] chore: clean up deprecated helpers (7/9)
+[2026-05-14 17:48:10 +0530] perf: reduce memory consumption in background worker (8/9)
