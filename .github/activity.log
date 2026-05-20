@@ -1336,3 +1336,4 @@
 [2026-05-20 17:15:25 +0530] test: add integration test cases (7/10)
 [2026-05-20 21:42:31 +0530] ci: fine-tune workflow build pipeline (8/10)
 [2026-05-20 14:32:12 +0530] fix: correct timezone handling in scheduler (9/10)
+[2026-05-20 18:18:55 +0530] chore: clean up deprecated helpers (10/10)
