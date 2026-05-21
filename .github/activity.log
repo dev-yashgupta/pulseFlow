@@ -1342,3 +1342,4 @@
 [2026-05-21 12:48:44 +0530] build: update dependencies to latest patch versions (3/7)
 [2026-05-21 17:44:02 +0530] ci: fine-tune workflow build pipeline (4/7)
 [2026-05-21 19:35:44 +0530] style: standardize formatting and lint rules (5/7)
+[2026-05-21 08:09:16 +0530] docs: clarify setup prerequisites in guide (6/7)
