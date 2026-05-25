@@ -1368,3 +1368,4 @@
 [2026-05-25 12:24:27 +0530] feat: implement real-time event notifications (3/11)
 [2026-05-25 22:54:42 +0530] build: update dependencies to latest patch versions (4/11)
 [2026-05-25 10:09:47 +0530] refactor: streamline state management logic (5/11)
+[2026-05-25 15:35:55 +0530] docs: clarify setup prerequisites in guide (6/11)
