@@ -1401,3 +1401,4 @@
 [2026-05-29 10:17:19 +0530] build: update dependencies to latest patch versions (7/11)
 [2026-05-29 08:29:45 +0530] perf: reduce memory consumption in background worker (8/11)
 [2026-05-29 13:34:42 +0530] feat: enhance dashboard metrics visualization (9/11)
+[2026-05-29 21:33:03 +0530] chore: clean up deprecated helpers (10/11)
