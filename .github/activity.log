@@ -1435,3 +1435,4 @@
 [2026-06-03 20:12:36 +0530] ci: fine-tune workflow build pipeline (4/9)
 [2026-06-03 12:51:36 +0530] chore: clean up deprecated helpers (5/9)
 [2026-06-03 12:26:15 +0530] refactor: streamline state management logic (6/9)
+[2026-06-03 21:04:42 +0530] docs: update API documentation and examples (7/9)
