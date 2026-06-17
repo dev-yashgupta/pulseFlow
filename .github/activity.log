@@ -1522,3 +1522,4 @@
 [2026-06-16 15:22:04 +0530] fix: resolve edge case in data ingestion (2/3)
 [2026-06-16 18:27:10 +0530] chore: clean up deprecated helpers (3/3)
 [2026-06-17 21:07:56 +0530] chore: clean up deprecated helpers (1/7)
+[2026-06-17 18:44:45 +0530] docs: clarify setup prerequisites in guide (2/7)
