@@ -1529,3 +1529,4 @@
 [2026-06-17 18:42:31 +0530] ci: fine-tune workflow build pipeline (6/7)
 [2026-06-17 17:59:14 +0530] refactor: streamline state management logic (7/7)
 [2026-06-18 08:47:35 +0530] docs: clarify setup prerequisites in guide (1/6)
+[2026-06-18 09:40:32 +0530] style: standardize formatting and lint rules (2/6)
