@@ -1670,3 +1670,4 @@
 [2026-07-07 12:20:41 +0530] docs: update API documentation and examples (2/9)
 [2026-07-07 18:36:05 +0530] style: remove redundant CSS declarations (3/9)
 [2026-07-07 19:14:12 +0530] perf: reduce memory consumption in background worker (4/9)
+[2026-07-07 16:04:53 +0530] chore: clean up deprecated helpers (5/9)
