@@ -1711,3 +1711,4 @@
 [2026-07-12 14:07:08 +0530] docs: clarify setup prerequisites in guide (7/10)
 [2026-07-12 22:11:47 +0530] refactor: streamline state management logic (8/10)
 [2026-07-12 11:18:06 +0530] feat: implement real-time event notifications (9/10)
+[2026-07-12 10:07:16 +0530] chore: clean up deprecated helpers (10/10)
