@@ -1750,3 +1750,4 @@
 [2026-07-18 21:43:52 +0530] perf: reduce memory consumption in background worker (7/8)
 [2026-07-18 22:53:31 +0530] docs: update API documentation and examples (8/8)
 [2026-07-19 11:17:47 +0530] feat: implement real-time event notifications (1/4)
+[2026-07-19 09:39:11 +0530] fix: correct timezone handling in scheduler (2/4)
