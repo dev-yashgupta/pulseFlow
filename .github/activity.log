@@ -1763,3 +1763,4 @@
 [2026-07-20 12:49:41 +0530] docs: clarify setup prerequisites in guide (8/8)
 [2026-07-21 14:26:11 +0530] docs: clarify setup prerequisites in guide (1/10)
 [2026-07-21 18:39:06 +0530] test: add integration test cases (2/10)
+[2026-07-21 10:11:05 +0530] ci: fine-tune workflow build pipeline (3/10)
