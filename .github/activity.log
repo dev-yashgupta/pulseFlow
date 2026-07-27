@@ -1806,3 +1806,4 @@
 [2026-07-26 22:57:05 +0530] style: standardize formatting and lint rules (5/5)
 [2026-07-27 13:19:35 +0530] ci: fine-tune workflow build pipeline (1/9)
 [2026-07-27 22:29:12 +0530] perf: cache frequently accessed lookup tables (2/9)
+[2026-07-27 15:18:20 +0530] chore: clean up deprecated helpers (3/9)
