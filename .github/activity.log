@@ -1809,3 +1809,4 @@
 [2026-07-27 15:18:20 +0530] chore: clean up deprecated helpers (3/9)
 [2026-07-27 12:56:31 +0530] refactor: streamline state management logic (4/9)
 [2026-07-27 21:20:02 +0530] docs: clarify setup prerequisites in guide (5/9)
+[2026-07-27 09:28:44 +0530] fix: address null pointer exception in parser (6/9)
