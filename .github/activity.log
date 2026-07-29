@@ -1824,3 +1824,4 @@
 [2026-07-29 19:52:35 +0530] ci: fine-tune workflow build pipeline (4/8)
 [2026-07-29 09:07:17 +0530] perf: reduce memory consumption in background worker (5/8)
 [2026-07-29 17:48:32 +0530] test: add integration test cases (6/8)
+[2026-07-29 18:44:07 +0530] chore: clean up deprecated helpers (7/8)
