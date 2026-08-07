@@ -1880,3 +1880,4 @@
 [2026-08-07 11:15:37 +0530] fix: correct timezone handling in scheduler (1/7)
 [2026-08-07 21:45:26 +0530] feat: improve responsive layout on mobile view (2/7)
 [2026-08-07 16:25:57 +0530] chore: clean up deprecated helpers (3/7)
+[2026-08-07 18:28:03 +0530] docs: update API documentation and examples (4/7)
