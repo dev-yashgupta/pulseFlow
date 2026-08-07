@@ -1877,3 +1877,4 @@
 [2026-08-06 19:39:07 +0530] chore: clean up deprecated helpers (4/6)
 [2026-08-06 16:17:15 +0530] perf: reduce memory consumption in background worker (5/6)
 [2026-08-06 15:09:46 +0530] fix: resolve edge case in data ingestion (6/6)
+[2026-08-07 11:15:37 +0530] fix: correct timezone handling in scheduler (1/7)
