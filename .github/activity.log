@@ -1916,3 +1916,4 @@
 [2026-08-12 19:43:20 +0530] test: add integration test cases (3/10)
 [2026-08-12 19:08:08 +0530] fix: address null pointer exception in parser (4/10)
 [2026-08-12 12:08:57 +0530] refactor: modularize authentication middleware (5/10)
+[2026-08-12 11:37:39 +0530] docs: clarify setup prerequisites in guide (6/10)
