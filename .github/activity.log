@@ -1918,3 +1918,4 @@
 [2026-08-12 12:08:57 +0530] refactor: modularize authentication middleware (5/10)
 [2026-08-12 11:37:39 +0530] docs: clarify setup prerequisites in guide (6/10)
 [2026-08-12 17:43:52 +0530] fix: address null pointer exception in parser (7/10)
+[2026-08-12 21:44:15 +0530] chore: clean up deprecated helpers (8/10)
