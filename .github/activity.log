@@ -1966,3 +1966,4 @@
 [2026-08-18 08:41:38 +0530] style: standardize formatting and lint rules (5/10)
 [2026-08-18 08:06:54 +0530] build: update dependencies to latest patch versions (6/10)
 [2026-08-18 20:10:33 +0530] feat: enhance dashboard metrics visualization (7/10)
+[2026-08-18 19:44:21 +0530] docs: clarify setup prerequisites in guide (8/10)
