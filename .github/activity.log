@@ -2008,3 +2008,4 @@
 [2026-08-23 18:43:14 +0530] style: standardize formatting and lint rules (2/5)
 [2026-08-23 10:27:31 +0530] feat: enhance dashboard metrics visualization (3/5)
 [2026-08-23 22:27:39 +0530] refactor: modularize authentication middleware (4/5)
+[2026-08-23 22:00:53 +0530] chore: clean up deprecated helpers (5/5)
