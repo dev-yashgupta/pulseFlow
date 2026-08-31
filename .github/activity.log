@@ -2062,3 +2062,4 @@
 [2026-08-31 14:49:16 +0530] refactor: modularize authentication middleware (3/8)
 [2026-08-31 22:53:20 +0530] perf: reduce memory consumption in background worker (4/8)
 [2026-08-31 19:02:09 +0530] perf: optimize database query throughput (5/8)
+[2026-08-31 09:47:14 +0530] docs: clarify setup prerequisites in guide (6/8)
