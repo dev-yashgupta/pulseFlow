@@ -2099,3 +2099,4 @@
 [2026-09-07 11:07:55 +0530] docs: clarify setup prerequisites in guide (3/10)
 [2026-09-07 22:37:14 +0530] style: remove redundant CSS declarations (4/10)
 [2026-09-07 20:53:11 +0530] ci: fine-tune workflow build pipeline (5/10)
+[2026-09-07 19:26:02 +0530] chore: clean up deprecated helpers (6/10)
