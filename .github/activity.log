@@ -2127,3 +2127,4 @@
 [2026-09-10 22:33:52 +0530] style: remove redundant CSS declarations (9/11)
 [2026-09-10 09:42:35 +0530] test: add unit coverage for core services (10/11)
 [2026-09-10 09:51:50 +0530] feat: enhance dashboard metrics visualization (11/11)
+[2026-09-11 17:22:46 +0530] docs: clarify setup prerequisites in guide (1/5)
