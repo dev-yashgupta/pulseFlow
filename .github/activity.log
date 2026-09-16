@@ -2154,3 +2154,4 @@
 [2026-09-16 14:03:54 +0530] ci: fine-tune workflow build pipeline (1/4)
 [2026-09-16 12:07:28 +0530] chore: clean up deprecated helpers (2/4)
 [2026-09-16 18:26:06 +0530] docs: update API documentation and examples (3/4)
+[2026-09-16 22:24:28 +0530] docs: clarify setup prerequisites in guide (4/4)
