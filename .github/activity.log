@@ -2155,3 +2155,4 @@
 [2026-09-16 12:07:28 +0530] chore: clean up deprecated helpers (2/4)
 [2026-09-16 18:26:06 +0530] docs: update API documentation and examples (3/4)
 [2026-09-16 22:24:28 +0530] docs: clarify setup prerequisites in guide (4/4)
+[2026-09-17 16:55:28 +0530] style: standardize formatting and lint rules (1/8)
