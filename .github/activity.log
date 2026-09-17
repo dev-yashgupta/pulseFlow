@@ -2158,3 +2158,4 @@
 [2026-09-17 16:55:28 +0530] style: standardize formatting and lint rules (1/8)
 [2026-09-17 14:10:06 +0530] build: update dependencies to latest patch versions (2/8)
 [2026-09-17 12:18:28 +0530] style: remove redundant CSS declarations (3/8)
+[2026-09-17 14:17:16 +0530] chore: clean up deprecated helpers (4/8)
