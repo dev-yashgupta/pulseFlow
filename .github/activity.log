@@ -2206,3 +2206,4 @@
 [2026-09-25 08:14:41 +0530] refactor: streamline state management logic (2/8)
 [2026-09-25 19:10:41 +0530] perf: cache frequently accessed lookup tables (3/8)
 [2026-09-25 09:38:08 +0530] style: standardize formatting and lint rules (4/8)
+[2026-09-25 11:52:37 +0530] docs: clarify setup prerequisites in guide (5/8)
