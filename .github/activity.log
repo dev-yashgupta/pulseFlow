@@ -2228,3 +2228,4 @@
 [2026-09-28 10:18:38 +0530] feat: improve responsive layout on mobile view (1/10)
 [2026-09-28 16:53:00 +0530] test: add integration test cases (2/10)
 [2026-09-28 08:06:41 +0530] docs: update API documentation and examples (3/10)
+[2026-09-28 08:55:58 +0530] chore: clean up deprecated helpers (4/10)
