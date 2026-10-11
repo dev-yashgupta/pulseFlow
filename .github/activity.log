@@ -2330,3 +2330,4 @@
 [2026-10-11 13:34:17 +0530] fix: correct timezone handling in scheduler (3/7)
 [2026-10-11 22:28:40 +0530] fix: correct timezone handling in scheduler (4/7)
 [2026-10-11 20:15:38 +0530] perf: optimize database query throughput (5/7)
+[2026-10-11 12:50:29 +0530] docs: clarify setup prerequisites in guide (6/7)
