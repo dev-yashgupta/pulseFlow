@@ -2354,3 +2354,4 @@
 [2026-10-15 12:15:26 +0530] perf: cache frequently accessed lookup tables (5/10)
 [2026-10-15 22:51:26 +0530] perf: cache frequently accessed lookup tables (6/10)
 [2026-10-15 19:16:07 +0530] docs: update API documentation and examples (7/10)
+[2026-10-15 16:30:21 +0530] docs: clarify setup prerequisites in guide (8/10)
