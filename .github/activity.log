@@ -2456,3 +2456,4 @@
 [2026-10-27 19:47:45 +0530] fix: resolve edge case in data ingestion (3/4)
 [2026-10-27 08:53:22 +0530] fix: resolve edge case in data ingestion (4/4)
 [2026-10-28 08:51:17 +0530] fix: correct timezone handling in scheduler (1/7)
+[2026-10-28 08:55:57 +0530] fix: address null pointer exception in parser (2/7)
