@@ -2517,3 +2517,4 @@
 [2026-11-05 20:48:10 +0530] style: remove redundant CSS declarations (3/6)
 [2026-11-05 16:51:03 +0530] style: standardize formatting and lint rules (4/6)
 [2026-11-05 19:52:18 +0530] docs: clarify setup prerequisites in guide (5/6)
+[2026-11-05 21:13:43 +0530] fix: address null pointer exception in parser (6/6)
